@@ -5,6 +5,7 @@ import hi from 'tools/hi'
 
 /// internal modules ///
 import initialState, {
+  initCurrentUser,
   initSpider,
   initSavedSpider,
   initLabel,
@@ -386,19 +387,24 @@ const reducer = (state = initialState, action) => {
 
       case (actions.SIGN_OUT_TRY) :
         return (seqSetIn (state,
-          ['events', 'SignOut'],
+          ['events', 'signOut'],
           'try',
         ))
 
       case (actions.SIGN_OUT_SUCCESS) :
+        // handle user
+        user.clear ()
+
         return (seqSetIn (state,
-          ['events', 'SignOut'],
+          ['events', 'signOut'],
           'success',
+          ['currentUser'],
+          initCurrentUser (),
         ))
 
       case (actions.SIGN_OUT_FAILURE) :
         return (seqSetIn (state,
-          ['events', 'SignOut'],
+          ['events', 'signOut'],
           'failure',
         ))
 
